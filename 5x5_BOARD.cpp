@@ -98,10 +98,6 @@ void Board::isWinner()
         cout << "O Wins!";
     else
         cout << "Draw";
-
-    cout << endl << endl;
-    cout << "X counter : " << endl;
-    cout << "O counter : ";
 }
 
 void Board::update_board(int x , int y ,char symbol)
