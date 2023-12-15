@@ -1,7 +1,20 @@
 #include "XO.h"
 #include <iostream>
+#include <iomanip>
 
 using namespace std;
+
+Board::Board()
+{
+    Board_Game = new char* [5];
+    for (int i = 0; i < 5; ++i)
+    {
+        Board_Game[i] = new char[5];
+        for (int j = 0; j < 5; j++)
+            Board_Game[i][j] = '.';
+    }
+}
+
 
 //Board
 bool Board::GameOver()
@@ -92,6 +105,9 @@ void Board::isWinner()
             }
         }
     }
+    cout << endl;
+    cout << "No Of Winning X's: " << counterx << endl;
+    cout << "No Of Winning O's: " << countero << endl;
 
     if (counterx > countero)
         cout << "X Wins!";
@@ -110,19 +126,19 @@ bool Board::update_board(int x, int y, char symbol)
         nmoves++;
         return true;
     }
-    else cout << "Enter Valid move" << endl;
-
-    cout << nmoves << endl;
+    else return false;
 }
 
-void Board::Display()
-{
-    for (int i = 0; i < 5; ++i)
-    {
-        for (int j = 0; j < 5; ++j)
-            cout << Board_Game[i][j];
-        cout << endl;
+void Board::Display() {
+    for (int i : {0, 1, 2 , 3 , 4}) {
+        cout << "\n| ";
+        for (int j : {0, 1, 2, 3, 4}) {
+            cout << "(" << i << "," << j << ")";
+            cout << setw(2) << Board_Game[i][j] << " |";
+        }
+        cout << "\n-----------------------------";
     }
+    cout << endl;
 }
 //Player
 //---------
@@ -154,15 +170,17 @@ void Game_Manager::Run()
 {
     int x, y;
     Boardptr->Display();
-    while ((Boardptr->GameOver()))
+    while (Boardptr->GameOver())
     {
         for (int i : {0, 1})
         {
             Players[i]->getmove(x, y);
-            while (!Boardptr->update_board(x, y, Players[i]->getSymbol())) {
+            while (!Boardptr->update_board(x, y, Players[i]->getSymbol()))
+            {
+                cout << "Enter valid move" << endl;
                 Players[i]->getmove(x, y);
             }
-            Boardptr->update_board(x, y, Players[i]->getSymbol());
+            Boardptr->Display();
         }
     }
     Boardptr->isWinner();
