@@ -1,6 +1,7 @@
 #include "XO.h"
 #include <iostream>
 #include <iomanip>
+#include <random>
 
 using namespace std;
 
@@ -184,4 +185,17 @@ void Game_Manager::Run()
         }
     }
     Boardptr->isWinner();
+}
+
+
+//Random_Player
+
+void Random_Player::getmove(int& x, int& y)
+{
+     x = (int)(rand() / (RAND_MAX + 1.0) * 5);
+     y = (int)(rand() / (RAND_MAX + 1.0) * 5);
+}
+char Random_Player::getSymbol()
+{
+    return symbol;
 }
