@@ -178,7 +178,6 @@ void Game_Manager::Run()
             Players[i]->getmove(x, y);
             while (!Boardptr->update_board(x, y, Players[i]->getSymbol()))
             {
-                cout << "Enter valid move" << endl;
                 Players[i]->getmove(x, y);
             }
             Boardptr->Display();
